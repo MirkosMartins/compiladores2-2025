@@ -1,0 +1,1 @@
+Escrever um codigo que remova os comentarios de um codigo fonte em linguagem C
