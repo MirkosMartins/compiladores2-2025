@@ -1,0 +1,1 @@
+Nesse diretório serão concentrados os arquivos do Analisador Léxico.
