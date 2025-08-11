@@ -1,0 +1,9 @@
+IMPLEMENTE UM ARQUIVO DE CONFIGURAÇÃO PARA AUTÔMATO CONTENDO O RECONHECIMENTO DOS TOKENS:
+*NOME VARIAVEL
+*INTEIRO
+*FRACIONARIO
+*PONTO E VÍRGULA
+*VÍRGULA
+*SINAL ATRIBUIÇÃO
+
+O autômato deve reconhecer corretamente os elementos colocados em entrada conforme esses tipos.
