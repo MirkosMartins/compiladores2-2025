@@ -28,6 +28,11 @@ class AFD:
       for i in linhas[4:]:
         #EFB
         self.regrasTransicao += i.rstrip().split(',')
+        self.virgula()
+        
+  def virgula(self):
+        self.regrasTransicao.append("q0:,:q7")
+        self.simbolos.append(',')
 
   def reconhece(self,palavra):
     if len(self.regrasTransicao)>0:
@@ -62,25 +67,20 @@ with open("code.c", "r") as arquivoC:
             estadoAtual = afd.estadoInicial
             valido = True
             for caracter in termo:
-                if caracter not in afd.simbolos:
-                    simbolo = "Símbolo não reconhecido"
-                    valido = False
-                    break
                 for regra in afd.regrasTransicao:
                     if regra.startswith(estadoAtual+':'+caracter):
                         estadoAtual = regra.split(':')[2]
                         break
-
             if valido:
                 for ef in afd.estadosFinais:
                     if ef.startswith(estadoAtual):
                         simbolo = ef.split(':')[1]
-
             tabela.append([len(tabela)+1, termo, simbolo, i])
 
-from tabulate import tabulate
-
-print(tabulate(tabela, headers=["ID", "Token", "Símbolo", "Linha", "Coluna"], tablefmt="grid"))
+import pandas as pd
+df = pd.DataFrame(tabela, columns=["ID", "Token", "Símbolo", "Linha" ])
+print(df)
+df.to_csv("tabela_tokens.csv", index=False)
 
 #inicio PRINTS
 #print(afd.estados)
@@ -89,4 +89,3 @@ print(tabulate(tabela, headers=["ID", "Token", "Símbolo", "Linha", "Coluna"], t
 #print(afd.estadosFinais)
 #print(afd.regrasTransicao)
 #fim PRINTS
-afd.reconhece(termo)

@@ -1,0 +1,10 @@
+ID,Token,Símbolo,Linha
+1,x,variavel,1
+2,3.14,fracionario,2
+3,none,variavel,3
+4,ss4,variavel,4
+5,;,pontoVirgua,5
+6,-1,inteiro,6
+7,=,igualdade,7
+8,",",virgula,8
+9,],,9
