@@ -59,14 +59,19 @@ class AFD:
 arquivo = open('config.txt')
 afd = AFD(arquivo)
 tabela = []
+
 with open("code.c", "r") as arquivoC:
-    for i, linha in enumerate(arquivoC, start=1): 
-        termo = linha.strip()
-        if termo:
+    for i, linha in enumerate(arquivoC, start=1):  # i = nº da linha
+        termos = linha.strip().split()  # separa por espaços
+        for termo in termos:
             simbolo = None
             estadoAtual = afd.estadoInicial
             valido = True
             for caracter in termo:
+                if caracter not in afd.simbolos:
+                    simbolo = "Símbolo não reconhecido"
+                    valido = False
+                    break
                 for regra in afd.regrasTransicao:
                     if regra.startswith(estadoAtual+':'+caracter):
                         estadoAtual = regra.split(':')[2]
