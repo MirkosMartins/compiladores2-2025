@@ -1,0 +1,6 @@
+,ID,token,tipo,l,c
+0,1,int,nome_variavel,1,1
+1,2,x,nome_variavel,1,5
+2,3,=,atribuicao,1,6
+3,4,10,inteiro,1,7
+4,5,;,ponto_virgula,1,9
