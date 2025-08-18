@@ -1,0 +1,80 @@
+class AFD:
+    def __init__(self, arqConfiguracao):
+        linhas = arqConfiguracao.readlines()
+        if len(linhas) < 5:
+            print('Erro: arquivo de configuração incompleto')
+            return
+        
+        self.estados = linhas[0].rstrip().split(',')
+        self.simbolos = linhas[1].rstrip().split(',')
+        self.estadoInicial = linhas[2].rstrip()
+        self.estadosFinais = linhas[3].rstrip().split(',')
+        self.regrasTransicao = []
+        
+        for i in linhas[4:]:
+            self.regrasTransicao += i.rstrip().split(',')
+        self.adiciona_virgula()
+    
+    def adiciona_virgula(self):
+        """Adiciona regra extra para reconhecer vírgula e adiciona ',' nos símbolos."""
+        self.regrasTransicao.append("q0:,:q7")
+        if ',' not in self.simbolos:
+            self.simbolos.append(',')
+    
+    def processa_token(self, token):
+        """Processa um token pelo AFD e retorna o símbolo reconhecido."""
+        estadoAtual = self.estadoInicial
+        for caracter in token:
+            encontrado = False
+            for regra in self.regrasTransicao:
+                if regra.startswith(estadoAtual + ':' + caracter):
+                    estadoAtual = regra.split(':')[2]
+                    encontrado = True
+                    break
+            if not encontrado:
+                return None  # símbolo não reconhecido
+        for ef in self.estadosFinais:
+            if ef.startswith(estadoAtual):
+                return ef.split(':')[1]
+        return None  # não chegou em estado final
+    
+    def tokenize(self, texto):
+        """Recebe uma string (linha ou código inteiro) e retorna lista de tokens com símbolos."""
+        tokens = []
+        token_atual = ''
+        linha_num = 1
+        for caracter in texto:
+            if caracter.isspace():
+                if token_atual:
+                    simbolo = self.processa_token(token_atual)
+                    tokens.append([token_atual, simbolo, linha_num])
+                    token_atual = ''
+                if caracter == '\n':
+                    linha_num += 1
+            else:
+                token_atual += caracter
+        # Captura último token se houver
+        if token_atual:
+            simbolo = self.processa_token(token_atual)
+            tokens.append([token_atual, simbolo, linha_num])
+        return tokens
+
+
+# --- Uso da classe AFD para ler e tokenizar um arquivo ---
+arquivo = open('config.txt')
+afd = AFD(arquivo)
+arquivo.close()
+
+# Lê código-fonte
+with open("code.c", "r") as f:
+    codigo = f.read()
+
+tokens = afd.tokenize(codigo)
+
+# Cria tabela final com IDs
+tabela = [[i+1, t[0], t[1], t[2]] for i, t in enumerate(tokens)]
+
+import pandas as pd
+df = pd.DataFrame(tabela, columns=["ID", "Token", "Símbolo", "Linha"])
+print(df)
+df.to_csv("tabela_tokens.csv", index=False)
