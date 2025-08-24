@@ -8,6 +8,9 @@ Original file is located at
     https://colab.research.google.com/drive/1RS5bdEVDJQRM-hc3FPSKU9fytzKv6Z1V
 """
 
+import pandas
+
+
 class AFD:
   estados = []
   simbolos = []
@@ -34,6 +37,62 @@ class AFD:
         self.regrasTransicao.append("q0:,:q7")
         self.simbolos.append(',')
 
+  def analisar_codigo(self, codigo):
+    tokens = []
+    i = 0
+    atual = ""
+    
+    while i < len(codigo):
+        char = codigo[i]
+        
+        # Ignora espaços em branco
+        if char.isspace():
+            if atual:
+                self.processar_token(atual, tokens)
+                atual = ""
+            i += 1
+            continue
+            
+        if char in ['+', '-', '=', ';']:
+            if atual:
+                self.processar_token(atual, tokens)
+                atual = ""
+            self.processar_token(char, tokens)
+            i += 1
+            continue
+            
+        # Acumula caracteres para identificadores/números
+        atual += char
+        i += 1
+        
+        # Processa último token
+        if i == len(codigo) and atual:
+            self.processar_token(atual, tokens)
+            
+    return tokens
+
+  def processar_token(self, token, tokens):
+    estadoAtual = self.estadoInicial
+    tipo = None
+    
+    for char in token:
+        if char not in self.simbolos:
+            tipo = "Símbolo não reconhecido"
+            break
+        
+        for regra in self.regrasTransicao:
+            if regra.startswith(estadoAtual + ':' + char):
+                estadoAtual = regra.split(':')[2]
+                break
+                
+    if not tipo:
+        for ef in self.estadosFinais:
+            if ef.startswith(estadoAtual):
+                tipo = ef.split(':')[1]
+                break
+                
+    tokens.append((token, tipo))
+
   def reconhece(self,palavra):
     if len(self.regrasTransicao)>0:
       for caracter in palavra.rstrip():
@@ -42,13 +101,10 @@ class AFD:
           return 0
       estadoAtual = self.estadoInicial
       for caracter in palavra.rstrip():
-        for regra in self.regrasTransicao: #isso não é o mais otimizado
+        for regra in self.regrasTransicao: 
           if regra.startswith(estadoAtual+':'+caracter):
-            #print(regra)
             estadoAtual = regra.split(':')[2]
-            #print(estadoAtual)
             break
-      #vou buscar se o estadoAtual é um dos estados Finais!
       for ef in self.estadosFinais:
         if ef.startswith(estadoAtual):
           print('Símbolo',palavra,'reconhecido como',ef.split(':')[1])
@@ -61,29 +117,15 @@ afd = AFD(arquivo)
 tabela = []
 
 with open("code.c", "r") as arquivoC:
-    for i, linha in enumerate(arquivoC, start=1):  # i = nº da linha
-        termos = linha.strip().split()  # separa por espaços
-        for termo in termos:
-            simbolo = None
-            estadoAtual = afd.estadoInicial
-            valido = True
-            for caracter in termo:
-                if caracter not in afd.simbolos:
-                    simbolo = "Símbolo não reconhecido"
-                    valido = False
-                    break
-                for regra in afd.regrasTransicao:
-                    if regra.startswith(estadoAtual+':'+caracter):
-                        estadoAtual = regra.split(':')[2]
-                        break
-            if valido:
-                for ef in afd.estadosFinais:
-                    if ef.startswith(estadoAtual):
-                        simbolo = ef.split(':')[1]
-            tabela.append([len(tabela)+1, termo, simbolo, i])
+    codigo = arquivoC.read()
+    tokens = afd.analisar_codigo(codigo)
+    
+tabela = []
+for i, (token, tipo) in enumerate(tokens, 1):
+    tabela.append([i, token, tipo, 1])  
 
 import pandas as pd
-df = pd.DataFrame(tabela, columns=["ID", "Token", "Símbolo", "Linha" ])
+df = pd.DataFrame(tabela, columns=["ID", "Token", "Símbolo", "Linha"])
 print(df)
 df.to_csv("tabela_tokens.csv", index=False)
 
