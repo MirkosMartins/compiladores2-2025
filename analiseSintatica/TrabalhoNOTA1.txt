@@ -1,0 +1,12 @@
+Construa a sintaxe para reconhecer o código, em linguagem C, do IF-ELSE, onde:
+if(TESTE-CONDICIONAL){
+  COMANDO;
+}else{
+  COMANDO;
+}
+
+TESTE-CONDICIONAL deve constar na sintaxe 
+COMANDO não precisa ser descrito na sintaxe
+
+*entrega até 15 set 2025 via Git, com a sintaxe descrita em um arquivo com nome
+sintaxe-[NOME-ALUNO].pdf nessa pasta (analiseSintatica).
