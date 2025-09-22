@@ -1,0 +1,2 @@
+Criar AFD para sintaxe de inicialização de variável (simples, composta, com e sem inicialização (float e int)).
+Input para o AFD: config do AFD e tabela de símbolos (ler coluna TIPO).
