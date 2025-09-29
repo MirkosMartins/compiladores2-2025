@@ -1,0 +1,14 @@
+q0,q1,q2,q3,q4,q5,q6
+PR-int,PR-float,nomeVar,virgula,sinal_atribuicao,inteiro,fracionario,ponto_virgula
+q0
+q3:Declaracao-simples,q6:Declaracao-multipla
+q0:PR-int:q1
+q0:PR-float:q1
+q1:nomeVar:q2
+q2:sinal_atribuicao:q4
+q2:virgula:q1
+q2:ponto_virgula:q3
+q4:inteiro:q5
+q4:fracionario:q5
+q5:virgula:q1
+q5:ponto_virgula:q6
