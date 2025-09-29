@@ -80,6 +80,7 @@ afd = AFD(arquivo)
 code = open("code.c").readlines()
 tabela = pd.DataFrame(columns=["ID","token","tipo","l","c"])
 i=1
+l=1
 print(code)
 code = [s.strip() for s in code]
 for termo in code:
@@ -90,12 +91,13 @@ for termo in code:
             "ID": [i],
             "token": [r[0]],
             "tipo": [utils.is_pr(r[1], r[0])],
-            "l": [i],
+            "l": [l],
             "c": ["-"],
             "ref": ["-"]
         })
         i+=1
         tabela = pd.concat([tabela, tb], ignore_index=True)
+    l+=1
 
 pilhas = {"(": [], "[": [], "{": []}
 
