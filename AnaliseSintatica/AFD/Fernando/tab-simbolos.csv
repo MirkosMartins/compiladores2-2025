@@ -1,0 +1,10 @@
+l,token,tipo,ID
+1,int,PR-int,1
+1,x,nomeVar,2
+1,",",virgula,3
+1,y,nomeVar,4
+1,=,sinal_atribuicao,5
+1,10,inteiro,6
+1,",",virgula,7
+1,w,nomeVar,8
+1,";",ponto_virgula,9

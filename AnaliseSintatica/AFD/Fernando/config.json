@@ -1,0 +1,48 @@
+{
+  "states": [
+    "q0",
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6"
+  ],
+  "alphabet": [
+    "PR-int",
+    "PR-float",
+    "nomeVar",
+    "sinal_atribuicao",
+    "inteiro",
+    "fracionario",
+    "virgula",
+    "ponto_virgula"
+  ],
+  "initial_state": "q0",
+  "final_states": {
+    "q3": "Declaracao-simples",
+    "q6": "Declaracao-multipla-ou-atribuicao"
+  },
+  "transitions": {
+    "q0": {
+      "PR-int": "q1",
+      "PR-float": "q1"
+    },
+    "q1": {
+      "nomeVar": "q2"
+    },
+    "q2": {
+      "sinal_atribuicao": "q4",
+      "virgula": "q1",
+      "ponto_virgula": "q3"
+    },
+    "q4": {
+      "inteiro": "q5",
+      "fracionario": "q5"
+    },
+    "q5": {
+      "virgula": "q1",
+      "ponto_virgula": "q6"
+    }
+  }
+}
