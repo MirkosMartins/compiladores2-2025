@@ -1,0 +1,5 @@
+Código,Descrição do erro,Linha
+banana = 10;,A variável banana não é do tipo int,1
+x = y;,A variável x não é do mesmo tipo que y,3
+x = f(y);,"A função 'f' espera o parâmetro 1 do tipo int, mas foi passado 'y' do tipo float",4
+x = f(y);,O retorno da função 'f' não é do mesmo tipo de 'x',4
