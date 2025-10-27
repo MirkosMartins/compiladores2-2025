@@ -9,3 +9,5 @@ A tarefa proposta consiste em:
 * Se está correto (4,0)
 * Texto próprio (2,0)
 * Exemplo de cada fase (2,0)
+
+### resumo_segundaNota
