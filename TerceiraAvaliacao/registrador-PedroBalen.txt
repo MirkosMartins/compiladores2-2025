@@ -1,0 +1,11 @@
+Quantas instruções o processador possui?
+2^32 = 4.294.967.296
+
+Quantos registradores são endereçados?
+2^16 = 65.536
+
+Qual o tamanho de cada registrador?
+16 bits
+
+Qual o tamanho de memoria?
+ 65.536 * 16 = 1.048.576
