@@ -1,0 +1,11 @@
+1. Quantas instruções o processador possui?
+ 2³² = 4.294.967.296 instruções
+
+2. Quantos registradores são endereçados?
+ 2¹⁶ = 65.536 registradores
+
+3. Qual o tamanho de cada registrador?
+ 16 bits
+
+4. Qual o tamanho da memória?
+ 2¹⁶ × 16 = 1.048.576 bits = 128 KB
