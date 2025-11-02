@@ -1,0 +1,13 @@
+Resumo Luiz Henrique
+
+Análise Léxica
+
+A análise léxica serve para reconhecer o que cada elemento é no código e os separar por tokens, que são um ou um conjunto de caracteres, por exemplo “=” é um sinal de comparação, int é uma “palavra reservada”, e 10 é um “inteiro”.
+
+Análise Sintática
+
+A análise sintática é responsável por entender o que cada token faz em conjunto com outros tokens, por exemplo int x = 5; é uma declaração de variável, if (x == 10) { ... } é um teste de comparação para executar um comando, e também reconhece estruturas como {, ( e ) que indicam o início e o fim de blocos.
+
+Análise Semântica
+
+A análise semântica é responsável por verificar se tudo dentro do conjunto faz sentido. Por exemplo, se uma variável que está sendo usada já foi declarada antes e se o tipo dela está correto, ou se a operação é válida. Se o código for a = c + b;, ela verifica se as variáveis c e b existem, a que tipo pertencem e se são compatíveis para a operação. Também verifica se há coerência no uso das palavras e tipos, por exemplo, se for a = "banana";, verifica se é compatível com o tipo esperado.
